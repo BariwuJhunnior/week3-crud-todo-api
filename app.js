@@ -15,6 +15,18 @@ app.get('/todos', (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
 
+//GET Single Todo with ID
+app.get("/todos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const todo = todos.find(t => t.id === id);
+  if(!todo) return res.status(404).json({
+    message: "Todo Not Found."
+  });
+
+  res.status(200).json(todo);
+});
+
 // POST New – Create
 app.post('/todos', (req, res) => {
   const newTodo = { id: todos.length + 1, ...req.body }; // Auto-ID
