@@ -15,6 +15,20 @@ app.get('/todos', (req, res) => {
   res.status(200).json(todos); // Send array as JSON
 });
 
+//GET Active todos list: Not Completed
+app.get("/todos/active", (req, res) => {
+  const active = todos.filter(t => !t.completed);
+
+  res.json(active);
+});
+
+//GET Completed todos list
+app.get('/todos/completed', (req, res) => {
+  const completed = todos.filter((t) => t.completed);
+  res.json(completed); // Custom Read!
+});
+
+
 //GET Single Todo with ID
 app.get("/todos/:id", (req, res) => {
   const id = parseInt(req.params.id);
@@ -60,11 +74,8 @@ app.delete('/todos/:id', (req, res) => {
   res.status(204).send(); // Silent success
 });
 
-app.get('/todos/completed', (req, res) => {
-  const completed = todos.filter((t) => t.completed);
-  res.json(completed); // Custom Read!
-});
 
+//Error Handler Middleware
 app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Server error!' });
 });
