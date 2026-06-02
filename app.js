@@ -14,6 +14,19 @@ let todos = [
   { id: 2, task: "Build CRUD API", completed: false },
 ];
 
+//GET Home
+app.get("/", (req, res) => {
+  res.send({
+    message: "Welcome to the Todo API!",
+    endpoints: {
+      GET: ["/todos", "/todos/active", "/todos/completed", "/todos/:id"],
+      POST: ["/todos"],
+      PATCH: ["/todos/:id"],
+      DELETE: ["/todos/:id"],
+    },
+  });
+});
+
 // GET All – Read
 app.get("/todos", (req, res) => {
   res.status(200).json(todos);
